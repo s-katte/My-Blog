@@ -8,14 +8,6 @@
     <%= form.text_area :content, class: 'form-control', rows: 5, required: true %>
   </div>
   <div class="mb-3">
-    <%= form.label :image, class: 'form-label' %>
-    <%= form.file_field :image, class: 'form-control' %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :video, class: 'form-label' %>
-    <%= form.file_field :video, class: 'form-control' %>
-  </div>
-  <div class="mb-3">
     <%= form.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>

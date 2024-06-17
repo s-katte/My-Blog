@@ -24,9 +24,12 @@
           <li><a href="/blogs/my-blogs" class="nav-link px-2 text-white">My Posts</a></li>
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-        </form>
+        <%= form_tag(blogs_path, method: :get, class: "col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3") do %>
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], class: "form-control form-control-dark text-bg-dark", placeholder: "Search posts by title...", type: 'search' %>
+            <button type="submit" class="btn btn-outline-primary">Search</button>
+          </div>
+        <% end %>
 
         <div class="text-end">
           <% if current_user %>
@@ -39,6 +42,12 @@
       </div>
     </div>
   </header>
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show" role="alert">
+      <%= value %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
     <%= yield %>
   </body>
 </html>

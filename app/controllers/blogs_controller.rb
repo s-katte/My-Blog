@@ -5,7 +5,13 @@ class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
 
   def index
-    @pagy, @blogs = pagy(Blog.where(status: 'PUBLISHED').order('created_at DESC'))
+    if params[:search].present?
+      blogs = Blog.where(status: 'PUBLISHED').where("title LIKE ?", "%#{params[:search]}%").order(created_at: :desc)
+    else
+      blogs = Blog.where(status: 'PUBLISHED').order(created_at: :desc)
+    end
+
+    @pagy, @blogs = pagy(blogs)
   end
 
   def show
