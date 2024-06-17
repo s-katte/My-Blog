@@ -65,8 +65,13 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
+  gem "rspec-rails"
+  gem "factory_bot_rails"
 end
 
 gem 'devise'
+
+gem 'pagy', '~> 5.9', '>= 5.9.1'
+
+gem 'carrierwave', '~> 2.0'
+gem 'mini_magick', '~> 4.9'

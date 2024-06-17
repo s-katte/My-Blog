@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <h1 class="mb-4">All Blogs</h1>
+  <h1 class="mb-4">My Blogs</h1>
   <div class="row">
     <% @blogs.each do |blog| %>
       <div class="col-md-4 mb-4">
@@ -14,11 +14,16 @@
               <% end %>
             </p>
             <%= link_to 'Read More', blog, class: 'btn btn-primary' %>
+            <% if blog.status == 'DRAFT' %>
+              <%= link_to 'Publish', publish_blog_path(blog), data: {'turbo-method': :post}, class: 'btn btn-outline-success' %>
+            <% else %>
+              <br/>
+              Published on <%= time_ago_in_words(blog.published_date) %> ago
+            <% end %>
           </div>
         </div>
       </div>
     <% end %>
   </div>
   <%= link_to 'New Blog', new_blog_path, class: 'btn btn-success mt-3' %>
-  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>

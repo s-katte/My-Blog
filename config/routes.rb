@@ -8,6 +8,17 @@ Rails.application.routes.draw do
 
   root 'blogs#index', as: :authenticated_root
 
+  resources :blogs do
+    resources :comments, only: [:create]
+
+    collection do
+      get 'my-blogs', to: 'blogs#my_blogs'
+    end
+    member do
+      post 'publish'
+    end
+  end
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
