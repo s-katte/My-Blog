@@ -1,24 +1,29 @@
 <div class="container mt-5">
   <h1 class="mb-4">All Blogs</h1>
-  <div class="row">
-    <% @blogs.each do |blog| %>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"><%= link_to blog.title, blog %></h5>
-            <p class="card-text"><%= blog.content.truncate(100) %></p>
-            <p class="text-muted">
-              By <%= blog.user.email %>
-              <% if blog.published_date.present? %>
-                on <%= time_ago_in_words(blog.published_date) %> ago
-              <% end %>
-            </p>
-            <%= link_to 'Read More', blog, class: 'btn btn-primary' %>
+  <hr/>
+  <% if @blogs.any? %>
+    <div class="row">
+      <% @blogs.each do |blog| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to blog.title, blog %></h5>
+              <p class="card-text"><%= blog.content.truncate(100) %></p>
+              <p class="text-muted">
+                By <%= blog.user.email %>
+                <% if blog.published_date.present? %>
+                  on <%= time_ago_in_words(blog.published_date) %> ago
+                <% end %>
+              </p>
+              <%= link_to 'Read More', blog, class: 'btn btn-primary' %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p><strong>No Blogs Found..</strong></p>
+  <% end %>
   <%= link_to 'New Blog', new_blog_path, class: 'btn btn-success mt-3' %>
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>

@@ -1,29 +1,34 @@
 <div class="container mt-5">
   <h1 class="mb-4">My Blogs</h1>
-  <div class="row">
-    <% @blogs.each do |blog| %>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"><%= link_to blog.title, blog %></h5>
-            <p class="card-text"><%= blog.content.truncate(100) %></p>
-            <p class="text-muted">
-              By <%= blog.user.email %>
-              <% if blog.published_date.present? %>
-                on <%= time_ago_in_words(blog.published_date) %> ago
+  <hr>
+  <% if @blogs.present? %>
+    <div class="row">
+      <% @blogs.each do |blog| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to blog.title, blog %></h5>
+              <p class="card-text"><%= blog.content.truncate(100) %></p>
+              <p class="text-muted">
+                By <%= blog.user.email %>
+                <% if blog.published_date.present? %>
+                  on <%= time_ago_in_words(blog.published_date) %> ago
+                <% end %>
+              </p>
+              <%= link_to 'Read More', blog, class: 'btn btn-primary' %>
+              <% if blog.status == 'DRAFT' %>
+                <%= link_to 'Publish', publish_blog_path(blog), data: {'turbo-method': :post}, class: 'btn btn-outline-success' %>
+              <% else %>
+                <br/>
+                Published on <%= time_ago_in_words(blog.published_date) %> ago
               <% end %>
-            </p>
-            <%= link_to 'Read More', blog, class: 'btn btn-primary' %>
-            <% if blog.status == 'DRAFT' %>
-              <%= link_to 'Publish', publish_blog_path(blog), data: {'turbo-method': :post}, class: 'btn btn-outline-success' %>
-            <% else %>
-              <br/>
-              Published on <%= time_ago_in_words(blog.published_date) %> ago
-            <% end %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% else %>
+    <strong><p>No Blogs found..</p></strong>
+  <% end %>
   <%= link_to 'New Blog', new_blog_path, class: 'btn btn-success mt-3' %>
 </div>
