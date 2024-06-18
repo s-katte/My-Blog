@@ -6,7 +6,7 @@ class BlogsController < ApplicationController
 
   def index
     if params[:search].present?
-      blogs = Blog.where(status: 'PUBLISHED').where("title LIKE ?", "%#{params[:search]}%").order(created_at: :desc)
+      blogs = Blog.where(status: 'PUBLISHED').where("title ILIKE ?", "%#{params[:search].downcase}%").order(created_at: :desc)
     else
       blogs = Blog.where(status: 'PUBLISHED').order(created_at: :desc)
     end
